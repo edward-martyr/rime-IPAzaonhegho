@@ -25,8 +25,10 @@ sytsheh=[re.sub(r"([ʔɦ])ʷ",r"\1u",i) for i in sytsheh]
 sytsheh=[i for i in sytsheh if not re.search(r'\t[c|j][aeouy]', i)]
 sytsheh=[i for i in sytsheh if not re.search(r'\t[c|s|z]h[aeouy]', i)]
 
-sytsheh=[re.sub(r"(f)ɤᵝ",r"\1v̩",i) for i in sytsheh]
+sytsheh=[re.sub(r"(f)ɤᵝ",r"\1v̩ᵝ",i) for i in sytsheh]
 sytsheh=[re.sub(r"vɤᵝ",r"v̩ᵝ",i) for i in sytsheh]
 sytsheh=[re.sub(r"([pbm])ɤᵝ",r"\1ɯᵝ",i) for i in sytsheh]
 sytsheh=[re.sub(r"(pʰ)ɤᵝ",r"\1ɯᵝ",i) for i in sytsheh]
+
+sytsheh=[re.sub(r"zz̩",r"z̩",i) for i in sytsheh]
 ```
