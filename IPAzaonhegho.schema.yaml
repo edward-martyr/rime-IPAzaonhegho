@@ -35,8 +35,8 @@ speller:
     - xform/&//
     - derive/^ghi(|h|n)$/yi$1/
     - derive/^ghi([aueo])/y$1/
-    - derive/^(|')ni(|h|n)$/$1nyi$2/
-    - derive/^(|')ni([aueo])/$1ny$2/
+    # - derive/^(|')ni(|h|n)$/$1nyi$2/
+    # - derive/^(|')ni([aueo])/$1ny$2/
     - derive/^ghu$/wu/
     - derive/^ghu(.+)/w$1/
     - derive/iui/iu/
