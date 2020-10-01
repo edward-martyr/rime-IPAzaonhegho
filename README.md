@@ -2,39 +2,53 @@
 
 使用 `0` 輸入清化符號 ` ̥`。
 
-```python
-from itertools import product
-import re
-
-
-senmu=["p", "ph", "b", "f", "v", "m", "'m", "ts", "tsh", "s", "z", "zh", "c", "ch", "j", "sh", "l", "'l", "t", "th", "d", "n", "'n", "ny", "'ny", "k", "kh", "g", "ng", "'ng", "", "h", "gh"]
-
-yuinmu=['a', 'ua', 'ia', 'o', 'io', 'y', 'i', 'u', 'iu', 'e', 'ue', 'au', 'iau', 'eu', 'ieu', 'ae', 'uae', 'iae', 'ie', 'oe', 'uoe', 'ioe', 'an', 'uan', 'ian', 'aon', 'uaon', 'iaon', 'on', 'ion', 'en', 'uen', 'in', 'iuin', 'aeh', 'uaeh', 'iaeh', 'eh', 'ueh', 'ih', 'iuih', 'oh', 'ioh', 'ah', 'uah', 'iah']
-
-ipasenmu=["p", "pʰ", "b", "f", "v", "m", "ʔm", "t͡s", "t͡sʰ", "s", "z", "ʑ", "t͡ɕ", "t͡ɕʰ", "d͡ʑ", "ɕ", "l", "ʔl", "t", "tʰ", "d", "n", "ʔn", "ɲ", "ʔɲ", "k", "kʰ", "g", "ŋ", "ʔŋ", "ʔ", "h", "ɦ"]
-
-ipayuinmu=["a", "ʷa", "ia", "o", "yo", "z̩", "iᶽ", "ɤᵝ", "yᶽ", "e", "ʷe", "ɒ", "iɒ", "ɤɯ", "iɤɯ", "ɛ", "ʷɛ", "iɛ", "iɪ", "ø", "ʷø", "yø", "ã", "ʷã", "iã", "ɒ̃", "ʷɒ̃", "iɒ̃", "ɔŋ", "iɔŋ", "əŋ", "ʷəŋ", "ɪɲ", "yʏɲ", "ɐʔ", "ʷɐʔ", "iɐʔ", "əʔ", "ʷəʔ", "ɪʔ", "yʏɪʔ", "ɔʔ", "iɔʔ", "ɒʔ", "ʷɒʔ", "iɒʔ"]
-
-sytsheh=[pi[0]+'\t'+pi[1] for pi in zip([pi[0]+pi[1] for pi in product(ipasenmu,ipayuinmu)],[pi[0]+pi[1] for pi in product(senmu,yuinmu)])]
-
-
-sytsheh=[re.sub(r"\t'([aeiouy])",r"\1",i) for i in sytsheh]
-
-sytsheh=[re.sub(r"([ʔɦ])ʷ",r"\1u",i) for i in sytsheh]
-
-sytsheh=[i for i in sytsheh if not re.search(r'\t[c|j][aeouy]', i)]
-sytsheh=[i for i in sytsheh if not re.search(r'\tny[aeouy]', i)]
-sytsheh=[i for i in sytsheh if not re.search(r'\t[c|s|z]h[aeouy]', i)]
-sytsheh=[i for i in sytsheh if not re.search(r"\t'ny[aeouy]", i)]
-
-sytsheh=[i for i in sytsheh if not re.search(r'\t[pbfvmcjltdykgh]y', i)]
-sytsheh=[i for i in sytsheh if not re.search(r'\tny$', i)]
-sytsheh=[i for i in sytsheh if not re.search(r'\t[pctkg]hy', i)]
-
-sytsheh=[re.sub(r"(f)ɤᵝ",r"\1v̩ᵝ",i) for i in sytsheh]
-sytsheh=[re.sub(r"vɤᵝ",r"v̩ᵝ",i) for i in sytsheh]
-sytsheh=[re.sub(r"([pbm])ɤᵝ",r"\1ɯᵝ",i) for i in sytsheh]
-sytsheh=[re.sub(r"(pʰ)ɤᵝ",r"\1ɯᵝ",i) for i in sytsheh]
-
-sytsheh=[re.sub(r"zz̩",r"z̩",i) for i in sytsheh]
-```
+|     |     |   g  |   tsh  |   k  |   'ng  |   t  |   c  |   'l  |   s  |   f  |   z  |   kh  |   m  |   'm  |   l  |   ph  |   th  |   ch  |   'ny  |   n  |   ng  |   b  |   'n  |   sh  |   v  |   r  |   ny  |   j  |   gh  |   ts  |   p  |   h  |   d  |
+|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+|   iae  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |   ʔɲiɛ  |     |     |     |     |     |     |     |   ɲiɛ  |     |   ɦiɛ  |     |     |     |     |
+|   ia  |   ʔia  |     |   t͡sʰia  |     |     |   tia  |   t͡ɕia  |     |   sia  |     |   zia  |     |   mia  |     |     |     |     |     |     |     |     |     |     |   ɕia  |     |     |   ɲia  |   d͡ʑia  |   ɦia  |   t͡sia  |     |     |     |
+|   eh  |   ʔəʔ  |   gəʔ  |   t͡sʰəʔ  |   kəʔ  |     |   təʔ  |     |   ʔləʔ  |   səʔ  |   fəʔ  |   zəʔ  |   kʰəʔ  |   məʔ  |     |   ləʔ  |   pʰəʔ  |   tʰəʔ  |     |     |   nəʔ  |   ŋəʔ  |   bəʔ  |     |     |   vəʔ  |     |     |     |   ɦəʔ  |   t͡səʔ  |   pəʔ  |   həʔ  |   dəʔ  |
+|   iaeh  |   ʔiɐʔ  |     |   t͡sʰiɐʔ  |     |     |     |   t͡ɕiɐʔ  |     |     |     |     |     |     |     |   liɐʔ  |     |     |   t͡ɕʰiɐʔ  |     |     |     |     |     |     |     |     |   ɲiɐʔ  |   d͡ʑiɐʔ  |   ɦiɐʔ  |   t͡siɐʔ  |     |     |     |
+|   u  |   ʔɘɯᵝ  |   gɘɯᵝ  |   t͡sʰɘɯᵝ  |   kɘɯᵝ  |   ʔŋɘɯᵝ  |   tɘɯᵝ  |     |   ʔlɘɯᵝ  |   sɘɯᵝ  |   fv̩ᵝ  |   zɘɯᵝ  |   kʰɘɯᵝ  |   mɯᵝ  |   ʔmɯᵝ  |   lɘɯᵝ  |   pʰɯᵝ  |   tʰɘɯᵝ  |     |     |   nɘɯᵝ  |   ŋɘɯᵝ  |   bɯᵝ  |     |     |   v̩ᵝ  |     |     |     |   ɦɘɯᵝ  |   t͡sɘɯᵝ  |   pɯᵝ  |   hɘɯᵝ  |   dɘɯᵝ  |
+|   i  |   ʔiᶽ  |     |   t͡sʰiᶽ  |     |     |   tiᶽ  |   t͡ɕiᶽ  |     |   siᶽ  |   fiᶽ  |   ziᶽ  |     |   miᶽ  |   ʔmiᶽ  |   liᶽ  |   pʰiᶽ  |   tʰiᶽ  |   t͡ɕʰiᶽ  |   ʔɲiᶽ  |     |     |   biᶽ  |   ʔniᶽ  |   ɕiᶽ  |   viᶽ  |     |   ɲiᶽ  |   d͡ʑiᶽ  |   ɦiᶽ  |   t͡siᶽ  |   piᶽ  |     |   diᶽ  |
+|   oh  |   ʔɔʔ  |   gɔʔ  |   t͡sʰɔʔ  |   kɔʔ  |     |   tɔʔ  |     |     |   sɔʔ  |   fɔʔ  |   zɔʔ  |   kʰɔʔ  |   mɔʔ  |     |   lɔʔ  |   pʰɔʔ  |   tʰɔʔ  |     |     |   nɔʔ  |   ŋɔʔ  |   bɔʔ  |     |     |   vɔʔ  |     |     |     |   ɦɔʔ  |   t͡sɔʔ  |   pɔʔ  |   hɔʔ  |   dɔʔ  |
+|   io  |   ʔyo  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |   t͡ɕʰyo  |     |     |     |     |     |   ɕyo  |     |     |     |     |     |     |     |     |     |
+|   aon  |   ʔɒ̃  |   gɒ̃  |   t͡sʰɒ̃   |   kɒ̃  |     |   tɒ̃  |     |   ʔlɒ̃  |   sɒ̃  |   fɒ̃  |   zɒ̃  |   kʰɒ̃  |   mɒ̃  |     |   lɒ̃  |   pʰɒ̃  |   tʰɒ̃  |     |     |   nɒ̃  |   ŋɒ̃  |   bɒ̃  |   ʔnɒ̃  |     |   vɒ̃  |     |     |     |   ɦɒ̃  |   t͡sɒ̃   |   pɒ̃  |   hɒ̃  |   dɒ̃  |
+|   au  |   ʔɒ  |   gɒ  |   t͡sʰɒ  |   kɒ  |     |   tɒ  |     |   ʔlɒ  |   sɒ  |     |   zɒ  |   kʰɒ  |   mɒ  |   ʔmɒ  |   lɒ  |   pʰɒ  |   tʰɒ  |     |     |   nɒ  |   ŋɒ  |   bɒ  |   ʔnɒ  |     |     |     |     |     |   ɦɒ  |   t͡sɒ  |   pɒ  |   hɒ  |   dɒ  |
+|   ih  |   ʔɪʔ  |     |   t͡sʰɪʔ  |     |     |   tɪʔ  |   t͡ɕɪʔ  |   ʔlɪʔ  |   sɪʔ  |     |   zɪʔ  |     |   mɪʔ  |     |   lɪʔ  |   pʰɪʔ  |   tʰɪʔ  |   t͡ɕʰɪʔ  |   ʔɲɪʔ  |   nɪʔ  |     |   bɪʔ  |     |   ɕɪʔ  |     |     |   ɲɪʔ  |   d͡ʑɪʔ  |   ɦɪʔ  |   t͡sɪʔ  |   pɪʔ  |     |   dɪʔ  |
+|   ie  |   ʔiɪ  |     |   t͡sʰiɪ  |     |     |   tiɪ  |   t͡ɕiɪ  |     |   siɪ  |   fiɪ  |   ziɪ  |     |   miɪ  |   ʔmiɪ  |   liɪ  |   pʰiɪ  |   tʰiɪ  |   t͡ɕʰiɪ  |   ʔɲiɪ  |     |     |   biɪ  |     |   ɕiɪ  |     |     |   ɲiɪ  |   d͡ʑiɪ  |   ɦiɪ  |   t͡siɪ  |   piɪ  |     |   diɪ  |
+|   o  |   ʔo  |     |   t͡sʰo  |   ko  |   ʔŋo  |   to  |     |     |   so  |     |   zo  |   kʰo  |   mo  |   ʔmo  |   lo  |   pʰo  |     |     |     |   no  |   ŋo  |   bo  |     |     |     |     |     |     |   ɦo  |   t͡so  |   po  |   ho  |     |
+|   iu  |   ʔyᶽ  |     |   t͡sʰyᶽ  |     |     |     |   t͡ɕyᶽ  |     |   syᶽ  |     |   zyᶽ  |     |     |     |   lyᶽ  |     |     |   t͡ɕʰyᶽ  |     |     |     |     |     |   ɕyᶽ  |     |     |   ɲyᶽ  |   d͡ʑyᶽ  |   ɦyᶽ  |   t͡syᶽ  |     |     |     |
+|   a  |   ʔa  |   ga  |   t͡sʰa  |   ka  |     |   ta  |     |   ʔla  |   sa  |     |   za  |   kʰa  |   ma  |   ʔma  |   la  |   pʰa  |   tʰa  |     |     |   na  |   ŋa  |   ba  |   ʔna  |     |   va  |     |     |     |   ɦa  |   t͡sa  |   pa  |   ha  |   da  |
+|   uoe  |   ʔuø  |     |     |   kʷø  |     |     |     |     |     |     |     |   kʰʷø  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |   ɦuø  |     |     |   hʷø  |     |
+|   eu  |   ʔɤᵝ  |   gɤᵝ  |   t͡sʰɤᵝ  |   kɤᵝ  |     |   tɤᵝ  |     |   ʔlɤᵝ  |   sɤᵝ  |   fɤᵝ  |   zɤᵝ  |   kʰɤᵝ  |   mɤᵝ  |     |   lɤᵝ  |   pʰɤᵝ  |   tʰɤᵝ  |     |     |   nɤᵝ  |   ŋɤᵝ  |   bɤᵝ  |     |     |   vɤᵝ  |     |     |     |   ɦɤᵝ  |   t͡sɤᵝ  |   pɤᵝ  |   hɤᵝ  |   dɤᵝ  |
+|   ah  |     |     |   t͡sʰɒʔ  |   kɒʔ  |     |     |     |     |   sɒʔ  |   fɒʔ  |   zɒʔ  |   kʰɒʔ  |   mɒʔ  |     |     |   pʰɒʔ  |     |     |     |     |   ŋɒʔ  |   bɒʔ  |     |     |     |     |     |     |   ɦɒʔ  |   t͡sɒʔ  |   pɒʔ  |   hɒʔ  |     |
+|   ua  |   ʔua  |   gʷa  |     |   kʷa  |     |     |     |     |     |     |     |   kʰʷa  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |   ɦua  |     |     |   hʷa  |     |
+|   uaon  |   ʔuɒ̃  |   gʷɒ̃  |     |   kʷɒ̃  |     |     |     |     |     |     |     |   kʰʷɒ̃  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |   ɦuɒ̃  |     |     |   hʷɒ̃  |     |
+|   ae  |   ʔɛ  |     |   t͡sʰɛ  |   kɛ  |     |   tɛ  |     |     |   sɛ  |   fɛ  |   zɛ  |   kʰɛ  |   mɛ  |   ʔmɛ  |   lɛ  |   pʰɛ  |   tʰɛ  |     |     |   nɛ  |   ŋɛ  |   bɛ  |     |     |   vɛ  |     |     |     |   ɦɛ  |   t͡sɛ  |   pɛ  |   hɛ  |   dɛ  |
+|   ieu  |   ʔiɤᵝ  |     |   t͡sʰiɤᵝ  |     |     |   tiɤᵝ  |   t͡ɕiɤᵝ  |   ʔliɤᵝ  |   siɤᵝ  |     |   ziɤᵝ  |     |   miɤᵝ  |     |   liɤᵝ  |     |     |   t͡ɕʰiɤᵝ  |   ʔɲiɤᵝ  |     |     |     |     |   ɕiɤᵝ  |     |     |   ɲiɤᵝ  |   d͡ʑiɤᵝ  |   ɦiɤᵝ  |   t͡siɤᵝ  |     |     |     |
+|   ueh  |   ʔuəʔ  |     |     |   kʷəʔ  |     |     |     |     |     |     |     |   kʰʷəʔ  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |   ɦuəʔ  |     |     |   hʷəʔ  |     |
+|   en  |   ʔəŋ  |   gəŋ  |   t͡sʰəŋ  |   kəŋ  |     |   təŋ  |     |   ʔləŋ  |   səŋ  |   fəŋ  |   zəŋ  |   kʰəŋ  |   məŋ  |   ʔməŋ  |   ləŋ  |   pʰəŋ  |   tʰəŋ  |     |     |   nəŋ  |   ŋəŋ  |   bəŋ  |     |     |   vəŋ  |     |     |     |   ɦəŋ  |   t͡səŋ  |   pəŋ  |   həŋ  |   dəŋ  |
+|   on  |   ʔɔŋ  |   gɔŋ  |   t͡sʰɔŋ  |   kɔŋ  |     |   tɔŋ  |     |     |   sɔŋ  |   fɔŋ  |   zɔŋ  |   kʰɔŋ  |   mɔŋ  |   ʔmɔŋ  |   lɔŋ  |   pʰɔŋ  |   tʰɔŋ  |     |     |   nɔŋ  |   ŋɔŋ  |   bɔŋ  |     |     |   vɔŋ  |     |     |     |   ɦɔŋ  |   t͡sɔŋ  |   pɔŋ  |   hɔŋ  |   dɔŋ  |
+|   iah  |   ʔiɒʔ  |     |   t͡sʰiɒʔ  |     |     |     |   t͡ɕiɒʔ  |     |   siɒʔ  |     |   ziɒʔ  |     |     |     |   liɒʔ  |     |     |   t͡ɕʰiɒʔ  |     |     |     |     |     |   ɕiɒʔ  |     |     |   ɲiɒʔ  |   d͡ʑiɒʔ  |   ɦiɒʔ  |   t͡siɒʔ  |     |     |     |
+|   y  |     |     |   t͡sʰz̩   |     |     |     |     |     |   sz̩  |     |   z̩  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |   t͡sz̩   |     |     |     |
+|   an  |   ʔã  |   gã  |   t͡sʰã   |   kã  |     |   tã  |     |     |   sã  |   fã  |   zã  |   kʰã  |   mã  |     |   lã  |   pʰã  |     |     |     |     |   ŋã  |   bã  |     |     |     |     |     |     |   ɦã  |   t͡sã   |   pã  |   hã  |     |
+|   in  |   ʔɪɲ  |     |   t͡sʰɪɲ  |     |     |   tɪɲ  |   t͡ɕɪɲ  |   ʔlɪɲ  |   sɪɲ  |     |   zɪɲ  |     |   mɪɲ  |   ʔmɪɲ  |   lɪɲ  |   pʰɪɲ  |   tʰɪɲ  |   t͡ɕʰɪɲ  |     |     |     |   bɪɲ  |     |   ɕɪɲ  |     |     |   ɲɪɲ  |   d͡ʑɪɲ  |   ɦɪɲ  |   t͡sɪɲ  |   pɪɲ  |     |   dɪɲ  |
+|   uae  |   ʔuɛ  |   gʷɛ  |     |   kʷɛ  |     |     |     |     |     |     |     |   kʰʷɛ  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |   ɦuɛ  |     |     |   hʷɛ  |     |
+|   aeh  |   ʔɐʔ  |   gɐʔ  |   t͡sʰɐʔ  |   kɐʔ  |     |   tɐʔ  |     |     |   sɐʔ  |   fɐʔ  |   zɐʔ  |   kʰɐʔ  |   mɐʔ  |     |   lɐʔ  |   pʰɐʔ  |   tʰɐʔ  |     |     |   nɐʔ  |   ŋɐʔ  |   bɐʔ  |     |     |   vɐʔ  |     |     |     |   ɦɐʔ  |   t͡sɐʔ  |   pɐʔ  |   hɐʔ  |   dɐʔ  |
+|   ioe  |   ʔyø  |     |     |     |     |     |   t͡ɕyø  |     |     |     |     |     |     |     |     |     |     |   t͡ɕʰyø  |     |     |     |     |     |   ɕyø  |     |     |   ɲyø  |   d͡ʑyø  |   ɦyø  |     |     |     |     |
+|   e  |   ʔe  |   ge  |   t͡sʰe  |   ke  |     |   te  |     |     |   se  |     |   ze  |   kʰe  |   me  |   ʔme  |   le  |   pʰe  |   tʰe  |     |     |   ne  |   ŋe  |   be  |   ʔne  |     |   ve  |     |     |     |   ɦe  |   t͡se  |   pe  |   he  |   de  |
+|   ian  |   ʔiã  |     |   t͡sʰiã   |     |     |     |   t͡ɕiã   |     |   siã  |     |   ziã  |     |     |     |   liã  |     |     |   t͡ɕʰiã   |   ʔɲiã  |     |     |     |     |   ɕiã  |     |     |   ɲiã  |   d͡ʑiã   |   ɦiã  |   t͡siã   |     |     |     |
+|   oe  |   ʔø  |     |   t͡sʰø  |   kø  |     |   tø  |     |     |   sø  |     |   zø  |   kʰø  |   mø  |     |   lø  |   pʰø  |   tʰø  |     |     |   nø  |   ŋø  |   bø  |   ʔnø  |     |     |     |     |     |   ɦø  |   t͡sø  |   pø  |   hø  |   dø  |
+|   iaon  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |   liɒ̃  |     |     |     |     |     |     |     |     |     |     |     |     |     |   ɦiɒ̃  |     |     |     |     |
+|   uah  |     |     |     |   kʷɒʔ  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
+|   uaeh  |   ʔuɐʔ  |     |     |   kʷɐʔ  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |   ɦuɐʔ  |     |     |   hʷɐʔ  |     |
+|   uan  |   ʔuã  |     |     |   kʷã  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |   ɦuã  |     |     |     |     |
+|   iuih  |   ʔyʏɪʔ  |     |     |     |     |     |   t͡ɕyʏɪʔ  |     |     |     |     |     |     |     |     |     |     |   t͡ɕʰyʏɪʔ  |     |     |     |     |     |   ɕyʏɪʔ  |     |     |   ɲyʏɪʔ  |   d͡ʑyʏɪʔ  |   ɦyʏɪʔ  |     |     |     |     |
+|   ue  |   ʔue  |   gʷe  |     |   kʷe  |     |     |     |     |     |     |     |   kʰʷe  |     |     |     |     |     |     |     |     |   ŋʷe  |     |     |     |     |     |     |     |   ɦue  |     |     |   hʷe  |     |
+|   iau  |   ʔiɒ  |     |   t͡sʰiɒ  |     |     |   tiɒ  |   t͡ɕiɒ  |   ʔliɒ  |   siɒ  |     |   ziɒ  |     |   miɒ  |   ʔmiɒ  |   liɒ  |   pʰiɒ  |   tʰiɒ  |   t͡ɕʰiɒ  |   ʔɲiɒ  |     |     |   biɒ  |     |   ɕiɒ  |   viɒ  |     |   ɲiɒ  |   d͡ʑiɒ  |   ɦiɒ  |   t͡siɒ  |   piɒ  |     |   diɒ  |
+|   ioh  |   ʔiɔʔ  |     |     |     |     |     |   t͡ɕiɔʔ  |     |     |     |     |     |     |     |     |     |     |   t͡ɕʰiɔʔ  |     |     |     |     |     |   ɕiɔʔ  |     |     |   ɲiɔʔ  |   d͡ʑiɔʔ  |   ɦiɔʔ  |     |     |     |     |
+|   ion  |   ʔiɔŋ  |     |     |     |     |     |   t͡ɕiɔŋ  |     |     |     |     |     |     |     |     |     |     |   t͡ɕʰiɔŋ  |     |     |     |     |     |   ɕiɔŋ  |   viɔŋ  |     |   ɲiɔŋ  |   d͡ʑiɔŋ  |   ɦiɔŋ  |     |     |     |     |
+|   uen  |   ʔuəŋ  |     |     |   kʷəŋ  |     |     |     |     |     |     |     |   kʰʷəŋ  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |   ɦuəŋ  |     |     |   hʷəŋ  |     |
+|   ime  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
+|   iuin  |   ʔyʏɲ  |     |     |     |     |     |   t͡ɕyʏɲ  |     |     |     |     |     |     |     |     |     |     |   t͡ɕʰyʏɲ  |     |     |     |     |     |   ɕyʏɲ  |     |     |   ɲyʏɲ  |   d͡ʑyʏɲ  |   ɦyʏɲ  |     |     |     |     |
+|     |     |     |     |     |   ʔŋ̩  |     |     |     |     |     |     |     |   m̩  |   ʔm̩  |     |     |     |     |     |   n̩  |   ŋ̩  |     |   ʔn̩  |     |     |   ɦəɭ  |     |     |     |     |     |     |     |
