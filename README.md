@@ -27,7 +27,8 @@ sytsheh=[i for i in sytsheh if not re.search(r'\tny[aeouy]', i)]
 sytsheh=[i for i in sytsheh if not re.search(r'\t[c|s|z]h[aeouy]', i)]
 sytsheh=[i for i in sytsheh if not re.search(r"\t'ny[aeouy]", i)]
 
-sytsheh=[i for i in sytsheh if not re.search(r'\t[pbfvmcjltdnykgh]y', i)]
+sytsheh=[i for i in sytsheh if not re.search(r'\t[pbfvmcjltdykgh]y', i)]
+sytsheh=[i for i in sytsheh if not re.search(r'\tny$', i)]
 sytsheh=[i for i in sytsheh if not re.search(r'\t[pctkg]hy', i)]
 
 sytsheh=[i for i in sytsheh if not re.search(r'\t[s][aeouy]', i)]
