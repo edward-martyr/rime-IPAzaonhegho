@@ -31,8 +31,6 @@ sytsheh=[i for i in sytsheh if not re.search(r'\t[pbfvmcjltdykgh]y', i)]
 sytsheh=[i for i in sytsheh if not re.search(r'\tny$', i)]
 sytsheh=[i for i in sytsheh if not re.search(r'\t[pctkg]hy', i)]
 
-sytsheh=[i for i in sytsheh if not re.search(r'\t[s][aeouy]', i)]
-
 sytsheh=[re.sub(r"(f)ɤᵝ",r"\1v̩ᵝ",i) for i in sytsheh]
 sytsheh=[re.sub(r"vɤᵝ",r"v̩ᵝ",i) for i in sytsheh]
 sytsheh=[re.sub(r"([pbm])ɤᵝ",r"\1ɯᵝ",i) for i in sytsheh]
